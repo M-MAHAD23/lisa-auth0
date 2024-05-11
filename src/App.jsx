@@ -7,14 +7,23 @@ import { useAuth0 } from "@auth0/auth0-react";
 
 function App() {
   const { loginWithRedirect } = useAuth0();
-  useEffect(() => {
-    loginWithRedirect()
-  })
+  const { isAuthenticated } = useAuth0();
+
+  const handleLogin = () => {
+    loginWithRedirect();
+  }
+
+
   return (
     <>
-      {/* <LoginButton /> */}
-      <LogoutButton />
-      <Profile />
+      {
+        isAuthenticated ?
+        <>
+          <LogoutButton />
+          <Profile />
+        </>
+        : handleLogin()
+      }
     </>
   )
 }
